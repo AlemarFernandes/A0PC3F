@@ -1,0 +1,65 @@
+/*  ---->> A0PC3F <<----
+ Projeto   RC_MASTER_TX v0.0
+ 
+
+
+
+  By A.Fernandes
+  Junho de 2021.
+*/
+
+
+#include <Arduino.h>
+
+#define LG_2 29
+#define LR_2 28
+
+
+#define Tenp_3 1000
+#define Tenp_2 500
+#define Tenp_3 250
+
+
+void Led_RG_1();
+
+
+void setup()
+{
+  Serial.begin(9600);
+
+  pinMode(LG_2, OUTPUT);
+  pinMode(LR_2, OUTPUT);
+
+  Serial.println("starting");
+  
+
+
+}
+
+void loop()
+{
+ 
+Led_RG_1();
+
+
+
+}
+
+
+void Led_RG_1()
+{
+  Serial.println("...");
+  Serial.println("Led_G");
+  digitalWrite(LG_2, HIGH);
+  delay(Tenp_3);
+  digitalWrite(LG_2, LOW);
+  delay(Tenp_3);
+
+  Serial.println("...");
+  Serial.println("Led_R");
+  digitalWrite(LR_2, HIGH);
+  delay(Tenp_3);
+  digitalWrite(LR_2, LOW);
+  delay(Tenp_3);
+
+}

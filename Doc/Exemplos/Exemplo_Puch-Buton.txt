@@ -8,22 +8,25 @@
   Junho de 2021.
 */
 
-//                             ===>> Bibliotecas Auxiliares <<===
+
+//===>> Bibliotecas Auxiliares <<===//
 
 #include <Arduino.h>
 
-//.....................................................................................................
-//..................................  Mapeamento de Hardware ..........................................
+//------------------------------------------------------------------------------------------------------
 
-#define LR_1 30                                   // led  vermelo   => R1 
-#define LR_2 28                                   // led  vermelo   => R2
-#define LR_3 26                                   // led  vermelo   => R3
-#define LR_4 24                                   // led  vermelo   => R4
 
-#define LG_1 31                                   // led  verde     => G1
-#define LG_2 29                                   // led  verde     => G2
-#define LG_3 27                                   // led  verde     => G3
-#define LG_4 25                                   // led  verde     => G4
+//===>> Mapeamento de Hardware <<===//
+
+#define LR_1 30                                   // led  vermelo
+#define LR_2 28                                   // led  vermelo
+#define LR_3 26                                   // led  vermelo
+#define LR_4 24                                   // led  vermelo
+
+#define LG_1 31                                   // led  verde                                 // 
+#define LG_2 29                                   // led  verde
+#define LG_3 27                                   // led  verde
+#define LG_4 25                                   // led  verde
 
 // Puch-Bottun
 #define BT_A 2
@@ -36,15 +39,17 @@
 //------------------------------------------------------------------------------------------------------
 
 
-//===>> Constantes do Projeto <<===// 
-
+//===>> Constantes do Projeto <<===//
 #define tempoDebounce 50                                         // tempo para eliminar o efeito Bounce 
 #define tmp1 50
 #define tmp2 500
 #define tmp3 1000
 
-//.....................................................................................................
-//                                  ===>> Variáveis Globais  <<===//
+
+
+//===>> Variáveis Globais  <<===//
+
+
 
 bool ButtonPressed_A();
 bool ButtonPressed_B();
@@ -55,13 +60,18 @@ bool ButtonPressed_F();
 
 //------------------------------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------------------------------
+
 //===>> Protótipo das Funções<<===//
 
 void Leds (bool R1,  bool R2, bool R3, bool R4, bool G1, bool G2,  bool G3,  bool G4);
 void Leds ();
-void Test_Button();
 
 //------------------------------------------------------------------------------------------------------
+
+
+
+
 
 void setup()
 {
@@ -86,21 +96,53 @@ void setup()
   
   Serial.println("starting");
 
-} //end  setup
+
+}
 
 void loop()
 {
-   Test_Button();
+  //Leds();
   
+
+   if (ButtonPressed_A()) {
+      Leds(0,0,0,0,1,1,1,1);
+   } else {
+      Leds(1,1,1,1,1,1,1,1);
+   }
+
+   if (ButtonPressed_B()) {
+      Leds(1,1,1,1,0,0,0,0);
+   } else {
+      Leds(1,1,1,1,1,1,1,1);
+   }
+
+   if (ButtonPressed_C()) {
+      Leds(0,0,0,0,0,0,0,0);
+   } else {
+      Leds(1,1,1,0,1,1,1,1);
+   }
+    if (ButtonPressed_D()) {
+      Leds(1,0,0,1,1,1,1,1);
+   } else {
+      Leds(1,1,1,1,1,1,1,1);
+   }
+
+   if (ButtonPressed_E()) {
+      Leds(1,1,1,1,0,1,1,0);
+   } else {
+      Leds(1,1,1,1,1,1,1,1);
+   }
+
+   if (ButtonPressed_F()) {
+      Leds(1,1,1,1,1,0,0,1);
+     } else {
+      Leds(1,1,1,1,1,1,1,1);
+   }
+
+
+
   
-} // end loop
-//........................................  End of main program .....................................................
-
-
-
-
-
-
+}
 
 //===>> Desenvolvimento das Funções <<===//
 
@@ -168,80 +210,11 @@ void Leds ()
 //---->> Função de controle para Puch-Button <<----
 
 
-
-
-void Test_Button()
-{
-    if(ButtonPressed_A()) {                      // liga leds R1, R2, R3, R4
-      Leds(0,0,0,0,1,1,1,1);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-     if(ButtonPressed_B()) {                      // liga leds R1, R4
-      Leds(0,1,1,0,1,1,1,1);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-     if(ButtonPressed_C()) {                      // liga leds R2, R3
-      Leds(1,0,0,1,1,1,1,1);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-     if(ButtonPressed_D()) {                      // liga G1, G2, G3, G4
-      Leds(1,1,1,1,1,0,0,1);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-    if(ButtonPressed_E()) {                      // liga G1, G4
-      Leds(1,1,1,1,0,1,1,0);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-    if(ButtonPressed_F()) {                      // liga G2, G3
-      Leds(1,1,1,1,0,0,0,0);
-    } else {
-      Leds(1,1,1,1,1,1,1,1);                     // leds OFF
-    }
-
-}// end Test_Button
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 bool ButtonPressed_A() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {
@@ -261,7 +234,7 @@ bool ButtonPressed_B() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {
@@ -280,7 +253,7 @@ bool ButtonPressed_C() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {
@@ -300,7 +273,7 @@ bool ButtonPressed_D() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {
@@ -320,7 +293,7 @@ bool ButtonPressed_E() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {
@@ -339,7 +312,7 @@ bool ButtonPressed_F() {
 
    bool estadoBotao;
    static bool estadoBotaoAnt; 
-   static bool estadoRet = false;
+   static bool estadoRet = true;
    static unsigned long delayBotao = 0;
 
    if ( (millis() - delayBotao) > tempoDebounce ) {

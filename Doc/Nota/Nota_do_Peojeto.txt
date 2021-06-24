@@ -1,0 +1,24 @@
+Nota sobre os leds 
+
+"Os leda ao iniciar o preograma em high" 
+
+-> Mapiamento dos leds e criar variaveis 
+
+  
+
+
+
+
+
+  
+void loop()
+{
+
+Led_RG_4();
+Led_RG_3();
+Led_RG_2();
+Led_RG_1();
+
+}
+
+
